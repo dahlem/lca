@@ -5,8 +5,9 @@ segment trees, which is loglinear in space and time to construct and
 linear in query time. The application accepts as parameters the Euler
 Circuit and corresponding auxiliary data structures including the
 levels of the corresponding vertices and the first position of a
-vertex in the Euler Circuit. Additionally, a query set has to be
-defined for which the LCA is computed pair-wise.
+vertex in the Euler Circuit. These arrays can be computed using the
+Euler-Circuit application also on my github [1]. Additionally, a query
+set has to be defined for which the LCA is computed pair-wise.
 
 
 CONFIGURATION
@@ -34,3 +35,4 @@ I/O Configuration:
   --query_set arg            Filename of the query set to compute pair-wise 
                              LCAs over.
 
+[1] https://github.com/dahlem/Euler-Circuit
