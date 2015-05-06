@@ -1,0 +1,36 @@
+README
+
+This project implements the least-common ancestor algorithm using
+segment trees, which is loglinear in space and time to construct and
+linear in query time. The application accepts as parameters the Euler
+Circuit and corresponding auxiliary data structures including the
+levels of the corresponding vertices and the first position of a
+vertex in the Euler Circuit. Additionally, a query set has to be
+defined for which the LCA is computed pair-wise.
+
+
+CONFIGURATION
+
+The code is implemented in C++ using the boost libraries, in
+particular the Boost Graph Library, Filesystem, and Program Options.
+
+OpenMP can be enabled using the --enable-openmp flag at the
+configuration step.
+
+
+EXECUTION
+
+General Configuration:
+  --help                produce help message
+  --version             show the version
+
+I/O Configuration:
+  --results arg (=./results) results directory.
+  --euler_circuit arg        Filename of the Euler Circuit.
+  --euler_levels arg         Filename of the vertex levels in the Euler 
+                             Circuit.
+  --euler_positions arg      Filename of the vertex positions in the Euler 
+                             Circuit.
+  --query_set arg            Filename of the query set to compute pair-wise 
+                             LCAs over.
+
