@@ -198,11 +198,18 @@ int main(int argc, char *argv[])
       std::string pair = queries[i] + "," + queries[j];
       std::string left = euler_positions[queries[i]] < euler_positions[queries[j]] ? queries[i] : queries[j];
       std::string right = euler_positions[queries[j]] >= euler_positions[queries[i]] ? queries[j] : queries[i];
+
+#ifndef NDEBUG
+      std::cout << "ID: " << left << " -> " << right << std::endl;
+      std::cout << "Pos: " << euler_positions[left] << " -> " << euler_positions[right] << std::endl;
+#endif /* NDEBUG */
+
       std::string lca = euler_circuit[rmq.query(euler_levels, 1, 0, euler_levels.size() -1, euler_positions[left], euler_positions[right])];
+      lcas[pair] = lca;
+
 #ifndef NDEBUG
       std::cout << pair << ": " << lca << std::endl;
 #endif /* NDEBUG */
-      lcas[pair] = lca;
     }
     #pragma omp critical
     {

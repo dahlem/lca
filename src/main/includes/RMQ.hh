@@ -77,7 +77,7 @@ class RMQ
   * @param boost::uint32_t the lower range
   * @param boost::uint32_t the upper range
   */
-  boost::uint32_t query(itypes::IntVector, boost::uint32_t, boost::uint32_t, boost::uint32_t, boost::uint32_t, boost::uint32_t);
+  boost::int32_t query(itypes::IntVector, boost::uint32_t, boost::uint32_t, boost::uint32_t, boost::uint32_t, boost::uint32_t);
 
 private:
  /** @fn create(itypes::IntVector, boost::uint32_t p_node, boost::uint32_t p_lb, boost::uint32_t p_up)
@@ -90,7 +90,7 @@ private:
   */
   void create(itypes::IntVector, boost::uint32_t, boost::uint32_t, boost::uint32_t);
 
-  boost::uint32_t *m_M;
+  boost::int32_t *m_M;
 };
 
 }

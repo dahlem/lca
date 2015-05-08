@@ -27,7 +27,14 @@
 # define __STDC_CONSTANT_MACROS
 #endif /* __STDC_CONSTANT_MACROS */
 
+#ifndef NDEBUG
+# include <algorithm>
+# include <iostream>
+# include <iterator>
+#endif /* NDEBUG */
+
 #include <cmath>
+#include <cstring>
 
 #include <boost/cstdint.hpp>
 #include <boost/numeric/conversion/cast.hpp>
@@ -41,7 +48,7 @@ RMQ::RMQ() {}
 
 RMQ::~RMQ()
 {
-  delete [] m_M;
+  if (m_M) { delete [] m_M; }
 }
 
 void RMQ::initialise(itypes::IntVector p_A)
@@ -51,7 +58,14 @@ void RMQ::initialise(itypes::IntVector p_A)
     boost::uint32_t N = boost::numeric_cast<boost::uint32_t>(p_A.size());
     boost::uint32_t x = boost::numeric_cast<boost::uint32_t>(std::ceil(log2(N))); // height of segment tree
     boost::uint32_t size = 2 * std::pow(2, x) - 1; // max size of segment tree
-    m_M = new  boost::uint32_t[size];
+    m_M = new boost::int32_t[size];
+    std::memset(m_M, -1, size * sizeof(boost::int32_t));
+
+#ifndef NDEBUG
+    std::cout << "Initialise M: " << std::endl;
+    std::copy(m_M, m_M+size, std::ostream_iterator<boost::int32_t>(std::cout, "\t"));
+    std::cout << std::endl;
+#endif /* NDEBUG */
 
     create(p_A, 1, 0, N-1);
   } catch(boost::numeric::negative_overflow& e) {
@@ -61,16 +75,36 @@ void RMQ::initialise(itypes::IntVector p_A)
   }
 }
 
-boost::uint32_t RMQ::query(itypes::IntVector p_A, boost::uint32_t p_node, boost::uint32_t p_lb,
+boost::int32_t RMQ::query(itypes::IntVector p_A, boost::uint32_t p_node, boost::uint32_t p_lb,
                            boost::uint32_t p_ub, boost::uint32_t p_i, boost::uint32_t p_j)
 {
-  boost::uint32_t p1, p2;
+  boost::int32_t p1, p2;
+
+#ifndef NDEBUG
+  itypes::IntVector::iterator b = p_A.begin(), e = p_A.begin();
+  std::advance(b, p_lb);
+  std::advance(e, p_ub+1);
+  std::cout << "Current node: " << p_node << "=" << m_M[p_node] << std::endl;
+  std::cout << "Query range [" << p_i << ", " << p_j << "] within array [" << p_lb << ", " << p_ub << "]: ";
+  std::copy(b, e, std::ostream_iterator<boost::uint32_t>(std::cout, "\t"));
+  std::cout << std::endl;
+#endif /* NDEBUG */
 
   // query interval does not intersect
-  if (p_i > p_ub || p_j < p_lb) { return -1; }
+  if (p_i > p_ub || p_j < p_lb) {
+#ifndef NDEBUG
+    std::cout << "Query interval does not intersect" << std::endl;
+#endif /* NDEBUG */
+    return -1;
+  }
 
   // the current interval is included in the query interval
-  if (p_i <= p_lb && p_j >= p_ub) { return m_M[p_node]; }
+  if (p_i <= p_lb && p_j >= p_ub) {
+#ifndef NDEBUG
+    std::cout << "The current interval is included in the query interval" << std::endl;
+#endif /* NDEBUG */
+    return m_M[p_node];
+  }
 
   // compute the minimum position in the
   // left and right part of the interval
@@ -78,12 +112,16 @@ boost::uint32_t RMQ::query(itypes::IntVector p_A, boost::uint32_t p_node, boost:
   p1 = query(p_A, 2 * p_node, p_lb, midPoint, p_i, p_j);
   p2 = query(p_A, 2 * p_node + 1, midPoint + 1, p_ub, p_i, p_j);
 
-  // return minimum
-  if (p1 == -1) { return m_M[p_node] = p2; }
-  if (p2 == -1) { return m_M[p_node] = p1; }
-  if (p_A[p1] <= p_A[p2]) {return m_M[p_node] = p1; }
+#ifndef NDEBUG
+  std::cout << "p1=" << p1 << ", p2=" << p2 << std::endl;
+#endif /* NDEBUG */
 
-  return m_M[p_node] = p2;
+  // return minimum
+  if (p1 == -1) { return p2; }
+  if (p2 == -1) { return p1; }
+  if (p_A[p1] <= p_A[p2]) {return p1; }
+
+  return p2;
 }
 
 void RMQ::create(itypes::IntVector p_A, boost::uint32_t p_node, boost::uint32_t p_lb, boost::uint32_t p_ub)

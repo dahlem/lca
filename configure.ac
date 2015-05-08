@@ -10,7 +10,7 @@
 
 AC_PREREQ(2.61)
 AC_INIT([Least Common Ancestor],
-        [0.5],
+        [0.6],
         [Dominik Dahlem Dominik.Dahlem@gmail.com], 
         [lca])
 
