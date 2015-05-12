@@ -195,9 +195,9 @@ int main(int argc, char *argv[])
   for (boost::uint32_t i = 0; i < (queries.size() - 1); ++i) {
     itypes::StringStringMap lcas;
     for (boost::uint32_t j = i + 1; j < queries.size(); ++j) {
-      std::string pair = queries[i] + "," + queries[j];
       std::string left = euler_positions[queries[i]] < euler_positions[queries[j]] ? queries[i] : queries[j];
       std::string right = euler_positions[queries[j]] >= euler_positions[queries[i]] ? queries[j] : queries[i];
+      std::string pair = left + "," + right;
 
 #ifndef NDEBUG
       std::cout << "ID: " << left << " -> " << right << std::endl;
