@@ -37,6 +37,7 @@ namespace types
 {
 
 typedef std::vector<std::string> StringVector;
+typedef std::vector<double> DoubleVector;
 typedef std::vector<boost::uint32_t> IntVector;
 typedef std::map<std::string, boost::uint32_t> StringIntMap;
 typedef std::map<std::string, std::string> StringStringMap;

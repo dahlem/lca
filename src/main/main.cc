@@ -97,7 +97,7 @@ int main(int argc, char *argv[])
   std::cout << "Reading the Euler Levels..." << std::endl;
 #endif /* NDEBUG */
 
-  itypes::IntVector euler_levels;
+  itypes::DoubleVector euler_levels;
   while (!eulerLevelsFile.eof()) {
     std::getline(eulerLevelsFile, line);
 #ifndef NDEBUG
@@ -106,7 +106,7 @@ int main(int argc, char *argv[])
 
     if (line != "") {
       boost::algorithm::trim(line);
-      euler_levels.push_back(boost::lexical_cast<boost::uint32_t>(line));
+      euler_levels.push_back(boost::lexical_cast<double>(line));
     }
   }
   eulerLevelsFile.close();
@@ -155,7 +155,7 @@ int main(int argc, char *argv[])
   std::cout << "Euler Circuit: ";
   std::copy(euler_circuit.begin(), euler_circuit.end(), std::ostream_iterator<std::string>(std::cout, "\t"));
   std::cout << std::endl << "Euler Levels:  ";
-  std::copy(euler_levels.begin(), euler_levels.end(), std::ostream_iterator<boost::uint32_t>(std::cout, "\t"));
+  std::copy(euler_levels.begin(), euler_levels.end(), std::ostream_iterator<double>(std::cout, "\t"));
   std::cout << std::endl;
 #endif /* NDEBUG */
 

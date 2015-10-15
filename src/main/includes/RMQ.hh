@@ -53,7 +53,7 @@ class RMQ
   RMQ();
   ~RMQ();
 
-  /** @fn initialise(boost::uint32_t, boost::uint32_t, boost::uint32_t, itypes::IntVector, boost::uint32_t)
+  /** @fn initialise(boost::uint32_t, boost::uint32_t, boost::uint32_t, itypes::DoubleVector, boost::uint32_t)
    *
    * Create the segment tree given an array. A segment tree allows
    * update/query operations in logarithmic time. The tree is created
@@ -62,33 +62,33 @@ class RMQ
    *  - if i<j the left and right ild will hold the information for the
    *    intervals [i, (i+j)/2] and [(i+j)/2+1, j] respectively.
    *
-   * @param itypes::IntVector the integer vector over which we create the segment tree
+   * @param itypes::DoubleVector the integer vector over which we create the segment tree
    * @throws RMQException if an error in the initialisation occurs
   */
-  void initialise(itypes::IntVector) throw (RMQException);
+  void initialise(itypes::DoubleVector) throw (RMQException);
 
- /** @fn query(itypes::IntVector, boost::uint32_t p_node, boost::uint32_t p_lb, boost::uint32_t p_up)
+ /** @fn query(itypes::DoubleVector, boost::uint32_t p_node, boost::uint32_t p_lb, boost::uint32_t p_up)
   *
   * Query the RMQ in the segment tree.
-  * @param IntVector the integer vector over which we created the segment ree
+  * @param DoubleVector the integer vector over which we created the segment ree
   * @param boost::uint32_t the node ID
   * @param boost::uint32_t the lower bound of the interval
   * @param boost::uint32_t the upper bound of the interval
   * @param boost::uint32_t the lower range
   * @param boost::uint32_t the upper range
   */
-  boost::int32_t query(itypes::IntVector, boost::uint32_t, boost::uint32_t, boost::uint32_t, boost::uint32_t, boost::uint32_t);
+  boost::int32_t query(itypes::DoubleVector, boost::uint32_t, boost::uint32_t, boost::uint32_t, boost::uint32_t, boost::uint32_t);
 
 private:
- /** @fn create(itypes::IntVector, boost::uint32_t p_node, boost::uint32_t p_lb, boost::uint32_t p_up)
+ /** @fn create(itypes::DoubleVector, boost::uint32_t p_node, boost::uint32_t p_lb, boost::uint32_t p_up)
   *
   * Private method to create the segment tree.
-  * @param IntVector the integer vector over which we create the segment ree
+  * @param DoubleVector the integer vector over which we create the segment ree
   * @param boost::uint32_t the node ID
   * @param boost::uint32_t the lower bound of the interval
   * @param boost::uint32_t the upper bound of the interval
   */
-  void create(itypes::IntVector, boost::uint32_t, boost::uint32_t, boost::uint32_t);
+  void create(itypes::DoubleVector, boost::uint32_t, boost::uint32_t, boost::uint32_t);
 
   boost::int32_t *m_M;
 };

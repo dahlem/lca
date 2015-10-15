@@ -51,7 +51,7 @@ RMQ::~RMQ()
   if (m_M) { delete [] m_M; }
 }
 
-void RMQ::initialise(itypes::IntVector p_A)
+void RMQ::initialise(itypes::DoubleVector p_A)
     throw (RMQException)
 {
   try {
@@ -75,13 +75,13 @@ void RMQ::initialise(itypes::IntVector p_A)
   }
 }
 
-boost::int32_t RMQ::query(itypes::IntVector p_A, boost::uint32_t p_node, boost::uint32_t p_lb,
+boost::int32_t RMQ::query(itypes::DoubleVector p_A, boost::uint32_t p_node, boost::uint32_t p_lb,
                            boost::uint32_t p_ub, boost::uint32_t p_i, boost::uint32_t p_j)
 {
   boost::int32_t p1, p2;
 
 #ifndef NDEBUG
-  itypes::IntVector::iterator b = p_A.begin(), e = p_A.begin();
+  itypes::DoubleVector::iterator b = p_A.begin(), e = p_A.begin();
   std::advance(b, p_lb);
   std::advance(e, p_ub+1);
   std::cout << "Current node: " << p_node << "=" << m_M[p_node] << std::endl;
@@ -124,7 +124,7 @@ boost::int32_t RMQ::query(itypes::IntVector p_A, boost::uint32_t p_node, boost::
   return p2;
 }
 
-void RMQ::create(itypes::IntVector p_A, boost::uint32_t p_node, boost::uint32_t p_lb, boost::uint32_t p_ub)
+void RMQ::create(itypes::DoubleVector p_A, boost::uint32_t p_node, boost::uint32_t p_lb, boost::uint32_t p_ub)
 {
   if (p_lb == p_ub) {
     m_M[p_node] = p_lb;
