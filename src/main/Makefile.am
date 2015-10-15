@@ -31,3 +31,6 @@ lca_LDFLAGS =                                                                \
 
 include_HEADERS = includes
 MAINTAINERCLEANFILES = Makefile.in
+
+check-syntax:
+	gcc -o nul -S ${lca_SOURCES}
